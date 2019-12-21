@@ -1,0 +1,61 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>キーボードによる画像の移動</title>
+<script language="javascript">
+	// 画像の表示座標・移動量
+	var x  = 450 ; // 表示する座標
+	var y  = 250 ; // 表示する座標
+	var pv =  15 ; // 1回の移動量
+
+	// キーボードのフラグ
+	//（1 : 押されている / 0 : 離されている）
+	var left  = 0 ;
+	var up    = 0 ;
+	var right = 0 ;
+	var down  = 0 ;
+	var space = 0 ;
+
+	//
+	// 押されたキーのフラグを　１　にする
+	function keydown(event) 
+	{
+	  if(event.keyCode == 37) left = 1;  //left key
+	  if(event.keyCode == 38) up=1;      //up key
+	  if(event.keyCode == 39) right = 1; //right key
+	  if(event.keyCode == 40) down = 1;  //down key
+	  disp() ;
+	}
+
+	function disp() // キーボード入力を反映して表示座標を更新
+	{
+	  if(left==1)   x = x - pv;
+	  if(right==1)  x = x + pv;
+	  if(up==1)     y = y - pv;
+	  if(down==1)   y = y + pv;
+
+	  document.getElementById("chou").style.left = x;
+	  document.getElementById("chou").style.top  = y;
+	}
+
+	/********** キーボードのイベント（離された） **********/
+
+	function keyup(event) // 離されたキーのフラグを　０　にする
+	{
+	  if(event.keyCode == 37) left =0;  //left key
+	  if(event.keyCode == 38) up=0;      //up key
+	  if(event.keyCode == 39) right = 0; //right key
+	  if(event.keyCode == 40) down = 0;  //down key
+	}
+</script>
+</head>
+<body>
+<div id="chou" style="POSITION:absolute;Z-INDEX:1;VISIBILITY:visible;TOP:250px;LEFT:450px;">
+<img src="img/システムズ君.gif">
+</div>
+<script language="javascript">
+document.onkeydown = keydown ; // イベント検出
+document.onkeyup   = keyup ; // イベント検出
+</script>
+</body>
+</html>
